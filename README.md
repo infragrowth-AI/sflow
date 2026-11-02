@@ -70,14 +70,16 @@ termina, el texto se escribe solo. Por ahora transcribe en **español**.
 
 ## Permisos (y por qué)
 
-La primera vez, macOS te va a pedir tres permisos. Se dan en Ajustes del Sistema →
-Privacidad y seguridad:
+Antes de abrir SFlow por primera vez, dale dos permisos en Ajustes del Sistema →
+Privacidad y seguridad (el instalador te abre la pantalla). En cada lista, borrá con «–»
+cualquier SFlow vieja y agregá la nueva con «+» desde `~/Applications`:
 
 1. **Accesibilidad**: para escribir el texto donde está tu cursor.
 2. **Monitoreo de entrada**: para darse cuenta de que apretaste el atajo.
 3. **Micrófono**: para escucharte. Sólo graba mientras mantenés el atajo.
 
-Después de dar los dos primeros, cerrá SFlow desde su ícono (Salir) y abrilo de nuevo.
+El del micrófono te lo pide sola la primera vez que dictás. Si actualizás SFlow, macOS te
+vuelve a pedir los dos primeros: es normal.
 
 ## Cuánto cuesta
 

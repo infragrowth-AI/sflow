@@ -66,25 +66,11 @@ def _ensure_accessibility() -> bool:
         return True
 
     if not trusted:
-        try:
-            subprocess.Popen([
-                "open",
-                "x-apple.systempreferences:com.apple.preference.security?Privacy_Accessibility",
-            ])
-        except Exception:
-            pass
-        try:
-            QMessageBox.warning(
-                None,
-                "SFlow necesita Accesibilidad",
-                "Sin este permiso SFlow no puede escribir el texto donde está tu cursor.\n\n"
-                "Abrí Ajustes del Sistema → Privacidad y seguridad → Accesibilidad y "
-                "activá SFlow. Si ya estaba activado (por ejemplo después de actualizar), "
-                "quitalo con «–» y volvé a agregarlo. Después reiniciá SFlow desde el "
-                "ícono de la barra de menú.",
-            )
-        except Exception:
-            pass
+        # No dialog of our own here. macOS already shows its prompt (with "Open
+        # System Settings") because of AXTrustedCheckOptionPrompt. An app-modal
+        # QMessageBox on top of it, plus opening Settings ourselves, froze clicks
+        # on a real install (2026-11-02): the user could not reach the switch.
+        log("accessibility not granted: waiting for the user (macOS prompt shown)")
     return trusted
 
 

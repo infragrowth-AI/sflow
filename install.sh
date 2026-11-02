@@ -198,22 +198,24 @@ fi
 
 # --- 8. Open it and permissions ----------------------------------------------
 if [ "$LAUNCH" -eq 1 ]; then
-    say_step "Opening SFlow"
-    open "$DEST"
-    cat <<'TXT'
+    # Permissions BEFORE the first launch: opening SFlow without Accessibility makes
+    # macOS show its prompt and Settings at once, and users got stuck (2026-11-02).
+    say_step "Permissions (SFlow stays closed until you grant them)"
+    pkill -f "$DEST/Contents/MacOS/SFlow" 2>/dev/null || true
+    open "x-apple.systempreferences:com.apple.preference.security?Privacy_Accessibility" || true
+    cat <<TXT
 
-SFlow is open (small icon in the menu bar, pill at the bottom of the screen).
-macOS needs three permissions, one at a time:
+macOS needs two permissions before SFlow opens. In each list, remove any old
+"SFlow" with "–", then "+", Cmd + Shift + G, paste $DEST, "Open", turn it on.
 
-  1. Accessibility  -> lets SFlow type the text where your cursor is.
-     System Settings > Privacy & Security > Accessibility: turn on "SFlow".
-       scripts/permissions.sh accessibility
+  1. Accessibility (open now) -> lets SFlow type where your cursor is.
   2. Input Monitoring -> lets SFlow hear the Control + Option shortcut.
        scripts/permissions.sh input
-  3. Microphone -> macOS asks the first time you dictate. Click "Allow".
+     If macOS offers "Quit & Reopen", pick "Later".
 
-After 1 and 2, quit SFlow from its menu bar icon and open it again.
-Then: click in any text field, hold Control + Option, speak, release.
+Then open SFlow:  open "$DEST"
+Click in any text field, hold Control + Option, speak, release.
+The first time, macOS asks for the Microphone: click "Allow".
 TXT
 else
     echo

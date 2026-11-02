@@ -47,18 +47,23 @@ typed where the cursor is. It transcribes locally with Whisper (MLX) on Apple Si
 6. **Verify:** `~/sflow/scripts/verify.sh` must end with `VERIFY: PASS`. It transcribes a
    Spanish phrase generated with `say`, offline, inside the built app, with no microphone
    and no permissions. Don't continue on a FAIL; see Troubleshooting.
-7. **Open it:** `open ~/Applications/SFlow.app`. A small icon appears in the menu bar and
-   a pill at the bottom of the screen. macOS may show a prompt for Accessibility right away.
-8. **Permissions, one at a time** (explain each in one sentence, then open it):
+7. **Permissions first, with SFlow closed** (one at a time; explain each in one sentence,
+   open the pane, wait for "listo"). Granting them before the first launch is what works:
+   launching without Accessibility makes macOS show its prompt and Settings at once, and
+   the user gets lost or stuck. Make sure it is closed:
+   `pkill -f "$HOME/Applications/SFlow.app/Contents/MacOS/SFlow" || true`.
    1. Accessibility — "para que SFlow pueda escribir donde está tu cursor":
-      `scripts/permissions.sh accessibility`. The user turns on "SFlow". If there are two
-      "SFlow" entries, the right one is the one in their user's Applications folder; if in
-      doubt, remove both with "–" and add `~/Applications/SFlow.app` with "+".
+      `scripts/permissions.sh accessibility`. Have them remove every "SFlow" entry with "–"
+      (old builds stay listed and look identical), then "+", **Cmd + Shift + G**, paste
+      `~/Applications/SFlow.app`, "Abrir", and turn it on.
    2. Input Monitoring — "para que SFlow sepa que apretaste el atajo":
-      `scripts/permissions.sh input`.
-   3. Restart SFlow so it picks them up:
-      `pkill -f "$HOME/Applications/SFlow.app/Contents/MacOS/SFlow"; open ~/Applications/SFlow.app`
-   4. Microphone — macOS asks on the first dictation; the user clicks "Permitir".
+      `scripts/permissions.sh input` (users can't find this pane on their own). Same: remove
+      old "SFlow" entries, add `~/Applications/SFlow.app`, turn it on. If macOS offers
+      "Salir y volver a abrir", they pick "Más tarde": you open it next.
+8. **Open it:** `open ~/Applications/SFlow.app`. A small icon appears in the menu bar and
+   a pill at the bottom of the screen. Check `~/Library/Application Support/SFlow/hotkey.log`
+   gets a new `keyboard.Listener started` line.
+   - Microphone — macOS asks on the first dictation; the user clicks "Permitir".
 9. **Live test:** ask the user to open Notes (or any text field), click inside, hold
    **Control + Option**, say one sentence, and release. Ask whether the text appeared.
    The first dictation can take a few seconds while the model loads.
@@ -91,7 +96,7 @@ back to the chat beyond what's needed.
 ## Update and uninstall
 
 - Update: `cd ~/sflow && git pull && ./install.sh --no-launch` then `open ~/Applications/SFlow.app`.
-  If something changed, permissions must be granted again (step 8).
+  If something changed, permissions must be granted again (step 7).
 - Uninstall: `cd ~/sflow && ./uninstall.sh` (app + start at login, keeps history).
   `--purge` also deletes history, recordings, settings and the Groq key
   (`~/Library/Application Support/SFlow`); `--remove-model` deletes the 1.6 GB model.
