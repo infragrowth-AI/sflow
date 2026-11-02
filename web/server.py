@@ -61,7 +61,7 @@ HTML_TEMPLATE = """
         header { display: flex; align-items: center; justify-content: space-between; gap: 12px;
                  margin-bottom: 32px; flex-wrap: wrap; }
         .brand { display: flex; align-items: center; gap: 12px; font-size: 24px; font-weight: 600; }
-        .purple { color: #8c50dc; } .orange { color: #ffa028; }
+        .accent { color: #FF7F00; }
         .low { color: rgba(255,255,255,.6); font-size: 18px; margin-left: 4px; }
         .badge { font-size: 12px; color: rgba(255,255,255,.3); background: rgba(255,255,255,.05);
                  padding: 4px 8px; border-radius: 999px; }
@@ -95,7 +95,7 @@ HTML_TEMPLATE = """
     <div class="wrap">
         <header>
             <div class="brand">
-                <div><span class="purple">S</span><span class="orange">f</span><span class="low">low</span></div>
+                <div>S<span class="accent">Flow</span></div>
                 <span class="badge" id="count-badge">-</span>
             </div>
             <div class="tools">
