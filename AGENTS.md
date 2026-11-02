@@ -95,8 +95,22 @@ back to the chat beyond what's needed.
 
 ## Update and uninstall
 
-- Update: `cd ~/sflow && git pull && ./install.sh --no-launch` then `open ~/Applications/SFlow.app`.
-  If something changed, permissions must be granted again (step 7).
+- Update (the user says "actualizame SFlow"):
+  1. `cd ~/sflow && git pull && ./install.sh --no-launch`. If it prints "Already built…
+     Skipping the build" and "Already installed", nothing changed: `open ~/Applications/SFlow.app`
+     and you're done.
+  2. If it rebuilt, the ad-hoc signature changed: macOS silently drops Accessibility and
+     Input Monitoring **and keeps the old entry in both lists, same name and icon as the new
+     one**. Toggling the old entry does nothing. Tell the user this in one sentence first.
+  3. Quit SFlow (`pkill -f "$HOME/Applications/SFlow.app/Contents/MacOS/SFlow" || true`) and
+     redo step 7 of the Procedure: in each list remove **every** "SFlow" with "–", add
+     `~/Applications/SFlow.app` with "+" (Cmd + Shift + G to paste the path), turn it on.
+     Optionally reset first so the lists start clean (only touches this app):
+     `tccutil reset Accessibility ai.infragrowth.sflow; tccutil reset ListenEvent ai.infragrowth.sflow`.
+  4. `open ~/Applications/SFlow.app`, check `hotkey.log` gets a new `keyboard.Listener started`,
+     ask for one dictation, and check `emit pressed` appears in `hotkey.log`.
+  Never rebuild just to "refresh" something: every rebuild costs the user this round of
+  permissions.
 - Uninstall: `cd ~/sflow && ./uninstall.sh` (app + start at login, keeps history).
   `--purge` also deletes history, recordings, settings and the Groq key
   (`~/Library/Application Support/SFlow`); `--remove-model` deletes the 1.6 GB model.

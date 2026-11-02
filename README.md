@@ -108,18 +108,34 @@ gratis que alcanza para uso personal.
   Algunos campos no lo aceptan, por ejemplo los de contraseña o algunos escritorios remotos.
 - La app está firmada "ad-hoc", sin certificado de Apple. Por eso, **cada vez que la
   actualizás o se reconstruye, macOS te pide de nuevo Accesibilidad y Monitoreo de entrada**.
-  Si dejó de pegar después de actualizar: en esas dos listas, seleccioná SFlow, tocá "–" y
-  volvé a agregarla con "+".
-- Si ya tenías otra SFlow instalada (la original, en `/Applications`), no abras las dos a la
-  vez: escuchan el mismo atajo.
+  Qué hacer: ver [Actualizar](#actualizar).
+- Si tenés otra versión de SFlow instalada (por ejemplo en `/Applications`), no abras las dos
+  a la vez: escuchan el mismo atajo.
 
 ## Actualizar
+
+La forma fácil: abrí Claude Code (o Codex) y pegale esto:
+
+> Actualizame SFlow siguiendo el CLAUDE.md de ~/sflow
+
+A mano:
 
 ```bash
 cd ~/sflow && git pull && ./install.sh
 ```
 
-Si no hubo cambios, no toca nada. Si los hubo, vas a tener que volver a dar los permisos.
+Si no hubo cambios, no toca nada. **Si los hubo, macOS se olvida de los permisos** y además
+deja la SFlow vieja en las listas, con el mismo nombre y el mismo ícono que la nueva. Por eso,
+después de actualizar:
+
+1. Cerrá SFlow (ícono de la barra de menú → Salir).
+2. En **Accesibilidad** y en **Monitoreo de entrada** (Ajustes del Sistema → Privacidad y
+   seguridad), borrá con «–» **todas** las SFlow que aparezcan.
+3. En cada una, tocá «+», apretá **Cmd + Shift + G**, pegá `~/Applications/SFlow.app`,
+   tocá Abrir y activala.
+4. Abrí SFlow de nuevo y probá el atajo.
+
+Si dejó de andar el atajo o el pegado después de actualizar, casi siempre es esto.
 
 ## Desinstalar
 
