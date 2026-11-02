@@ -1,0 +1,30 @@
+# Secrets and user data (dev mode writes these next to the code)
+.env
+.env.*
+!.env.example
+*.db
+*.db-journal
+transcriptions.db
+dictionary.txt
+snippets.json
+settings.json
+audio/
+*.wav
+*.aiff
+*.log
+hotkey.log
+.sflow.lock
+
+# Python / build
+__pycache__/
+*.pyc
+venv/
+.venv/
+*.egg-info/
+build/
+dist/
+*.iconset/
+
+# OS / tools
+.DS_Store
+.claude/settings.local.json

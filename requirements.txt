@@ -1,0 +1,19 @@
+PyQt6>=6.7.0
+sounddevice>=0.4.6
+numpy>=1.26.0
+pynput>=1.7.6
+groq>=0.4.0
+python-dotenv>=1.0.0
+flask>=3.0.0
+pyobjc-framework-Cocoa>=10.0
+pyobjc-framework-Quartz>=10.0
+pyobjc-framework-ApplicationServices>=10.0
+
+# --- Local offline transcription (Apple Silicon only, via Apple MLX) ---
+# Bundled into the .app (see sflow.spec). On Intel Macs these are skipped and
+# the router falls back to Groq (cloud, needs a key).
+mlx-whisper>=0.4.0; platform_machine == "arm64"
+parakeet-mlx>=0.3.0; platform_machine == "arm64"
+
+# --- Build ---
+pyinstaller>=6.10
